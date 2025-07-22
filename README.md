@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sentiment Analyzer
+
+This is a simple web application for analyzing the sentiment of text using the Google Cloud Natural Language API. It's built with Next.js and styled with Tailwind CSS.
+
+## Features
+
+*   Enter text into a form to analyze its sentiment.
+*   Displays the sentiment as Positive, Negative, or Neutral.
+*   Provides the sentiment score and magnitude.
+*   Simple, clean, and responsive user interface.
+*   Includes a dark mode theme.
+
+## Project Flow
+
+The application follows this data flow:
+
+1.  **`app/page.tsx`**: The main page that renders the `InputForm` component.
+2.  **`components/InputForm.tsx`**: Users enter text into a form. On submission, it sends a POST request to the backend API.
+3.  **`app/api/analyze/route.ts`**: The API route receives the text, calls the Google Cloud Natural Language API for sentiment analysis, and returns the result.
+4.  **`components/InputForm.tsx`**: The form component receives the API response and stores it in its state.
+5.  **`components/Results.tsx`**: This component receives the analysis results as props from `InputForm.tsx` and displays them to the user.
 
 ## Getting Started
 
-First, run the development server:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+You'll need the following software installed on your machine:
+
+*   [Node.js](https://nodejs.org/) (which includes npm)
+*   A Google Cloud Platform account with the Natural Language API enabled.
+*   An API key for the Google Cloud Natural Language API.
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/your-username/sentiment-analyzer.git
+    cd sentiment-analyzer
+    ```
+
+2.  **Install the dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Set up your environment variables:**
+
+    Create a file named `.env.local` in the root of your project and add your Google Cloud API key like this:
+
+    ```
+    GOOGLE_API_KEY=your_api_key_here
+    ```
+
+### Running the Development Server
+
+To start the development server, run the following command:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application uses a single API endpoint to handle sentiment analysis requests.
 
-## Learn More
+*   **`POST /api/analyze`**
 
-To learn more about Next.js, take a look at the following resources:
+    This endpoint accepts a JSON payload with a `text` field and returns the sentiment analysis results.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    **Request Body:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```json
+    {
+      "text": "This is a wonderful day!"
+    }
+    ```
 
-## Deploy on Vercel
+    **Success Response:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```json
+    {
+      "sentiment": "Positive",
+      "score": 0.8,
+      "magnitude": 0.8
+    }
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    **Error Response:**
+
+    ```json
+    {
+      "error": "Text is required"
+    }
+    ```
+
+## Built With
+
+*   [Next.js](https://nextjs.org/) - The React framework for production.
+*   [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+*   [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework.
+*   [Google Cloud Natural Language API](https://cloud.google.com/natural-language) - For sentiment analysis.
+*   [TypeScript](https://www.typescriptlang.org/) - A typed superset of JavaScript.
