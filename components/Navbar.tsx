@@ -12,12 +12,6 @@ const Navbar = () => {
             Sentiment Analyzer
           </Link>
           <div className="flex items-center space-x-8">
-            <Link href="/about" className="hover:text-primary">
-              About
-            </Link>
-            <Link href="/contact" className="hover:text-primary">
-              Contact
-            </Link>
             <ModeToggle />
           </div>
         </div>
