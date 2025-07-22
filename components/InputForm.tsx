@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Results from '@/components/Results';
@@ -7,7 +7,7 @@ export default function InputForm() {
   const [text, setText] = useState('');
   const [results, setResults] = useState(null);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch('/api/analyze', {
       method: 'POST',
